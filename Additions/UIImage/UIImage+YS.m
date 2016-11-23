@@ -47,4 +47,24 @@
     });
 }
 
++ (UIImage *)ys_createImageWithColor:(UIColor *)color andSize:(CGSize)size
+{
+    //图片尺寸
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    //填充画笔
+    UIGraphicsBeginImageContext(size);
+    //根据所传颜色绘制
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    //显示区域
+    CGContextFillRect(context, rect);
+    // 得到图片信息
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    //消除画笔
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 @end

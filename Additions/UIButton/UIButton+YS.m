@@ -12,18 +12,41 @@
 
 + (instancetype)ys_buttonWithTitle:(NSString *)title andFontSize:(CGFloat)fontSize andNormalColor:(UIColor *)normalColor andSelectedColor:(UIColor *)selectedColor {
     
-    UIButton *button = [[self alloc] init];
+    UIButton *btn = [[self alloc] init];
     
-    [button setTitle:title forState:UIControlStateNormal];
+    [btn setTitle:title forState:UIControlStateNormal];
     
-    [button setTitleColor:normalColor forState:UIControlStateNormal];
-    [button setTitleColor:selectedColor forState:UIControlStateSelected];
+    [btn setTitleColor:normalColor forState:UIControlStateNormal];
+    [btn setTitleColor:selectedColor forState:UIControlStateSelected];
     
-    button.titleLabel.font = [UIFont systemFontOfSize:fontSize];
+    btn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
     
-    [button sizeToFit];
+    [btn sizeToFit];
     
-    return button;
+    return btn;
+}
+
++ (instancetype)ys_buttonWithTitle:(NSString *)title andFontSize:(CGFloat)fontSize andSize:(CGSize)size andBorderWith:(NSInteger)borderWidth andBorderColor:(UIColor *)borderColor andCornerRadius:(NSInteger)cornerRadius andBGColor:(UIColor *)bgColor andTitleColor:(UIColor *)titleColor andHLBGColor:(UIColor *)hlBGColor andHLTitleColor:(UIColor *)hlTitleColor{
+    
+    UIButton *btn = [[self alloc] init];
+    [btn setTitle:title forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
+    btn.frame = CGRectMake(0, 0, size.width, size.height);
+    
+    // 正常状态：白底红边红字
+    btn.layer.borderWidth = borderWidth;
+    btn.layer.borderColor = borderColor.CGColor;
+    btn.layer.cornerRadius = cornerRadius;
+    btn.layer.masksToBounds = YES;
+    
+    [btn setTitleColor:titleColor forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage ys_createImageWithColor:bgColor andSize:size] forState:UIControlStateNormal];
+    
+    // 高亮(即按下)：红底白字
+    [btn setTitleColor:hlTitleColor forState:UIControlStateHighlighted];
+    [btn setBackgroundImage:[UIImage ys_createImageWithColor:hlBGColor andSize:size] forState:UIControlStateHighlighted];
+    
+    return btn;
 }
 
 @end
